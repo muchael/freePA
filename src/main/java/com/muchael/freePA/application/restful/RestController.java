@@ -1,4 +1,4 @@
-package com.muchael.freePA.web;
+package com.muchael.freePA.application.restful;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
