@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import lombok.Data;
 
@@ -21,11 +19,6 @@ import lombok.Data;
 @MappedSuperclass
 public abstract class AbstractEntity
 {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3875941859616104733L;
-
 	/*-------------------------------------------------------------------
 	 * 		 					ATTRIBUTES
 	 *-------------------------------------------------------------------*/
