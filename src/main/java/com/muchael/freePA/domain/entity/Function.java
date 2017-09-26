@@ -48,6 +48,12 @@ public class Function extends AbstractEntity {
 	private Function parentFile;
 	
 	/**
+	 * Document that the function belongs
+	 */
+	@ManyToOne
+	private Document document;
+	
+	/**
 	 * Data types
 	 */
 	@OneToMany
