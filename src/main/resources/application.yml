@@ -1,0 +1,7 @@
+#spring boot properties
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost/freepa-test
+    username: freepa
+    password: freepa
+    hikari.maximum-pool-size: 3

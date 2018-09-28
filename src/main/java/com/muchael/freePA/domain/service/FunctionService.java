@@ -2,6 +2,7 @@ package com.muchael.freePA.domain.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.muchael.freePA.domain.entity.Function;
@@ -10,6 +11,7 @@ import com.muchael.freePA.domain.repository.IFunctionRepository;
 @Service
 public class FunctionService {
 
+	@Autowired
 	private IFunctionRepository functionRepository;
 
 	/**
@@ -39,7 +41,7 @@ public class FunctionService {
 	 * @param id
 	 */
 	void deleteFunction(Long id) {
-		this.functionRepository.delete(id);
+		this.functionRepository.deleteById(id);
 	}
 	
 	/**

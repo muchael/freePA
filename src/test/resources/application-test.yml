@@ -1,0 +1,11 @@
+#spring boot properties
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: freepa
+    password: freepa
+    url: jdbc:postgresql://localhost/freepa
+  jpa:
+    hibernate.ddl-auto: update
+    properties.hibernate.temp.use_jdbc_metadata_defaults: false
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect

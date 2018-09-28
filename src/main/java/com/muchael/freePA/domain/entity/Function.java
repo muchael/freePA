@@ -70,10 +70,17 @@ public class Function extends AbstractEntity {
 	 *-------------------------------------------------------------------*/
 	/**
 	 * 
+	 */
+	public Function() {
+		super();
+	}	
+	
+	/**
+	 * 
 	 * @param id
 	 */
 	public Function(Long id) {
 		super(id);
-	}	
+	}
 	
 }
