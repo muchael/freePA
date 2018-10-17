@@ -2,6 +2,7 @@ package com.muchael.freePA.domain.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,6 +15,7 @@ public class Document extends AbstractEntity {
 	/*-------------------------------------------------------------------
 	 *				 		     ATTRIBUTES
 	 *-------------------------------------------------------------------*/
+	@NotNull
 	private Integer number;
 	private String subject;
 	private String version;
@@ -21,18 +23,25 @@ public class Document extends AbstractEntity {
 	private String analystInCharge;
 	private String reviwer;
 	
+	@NotNull
 	private DocumentStatus documentStatus;
 	
+	@NotNull
 	private CountingType countingType;
 	
+	@NotNull
 	private DocumentType documentType;
 	
+	@NotNull
 	@ManyToOne
 	private Project project;
 
 	/*-------------------------------------------------------------------
 	 * 		 					CONSTRUCTORS
 	 *-------------------------------------------------------------------*/
+	public Document() {
+
+	}
 	/**
 	 * 
 	 * @param id

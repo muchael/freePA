@@ -50,6 +50,7 @@ public class Function extends AbstractEntity {
 	/**
 	 * Document that the function belongs
 	 */
+	@NotNull
 	@ManyToOne
 	private Document document;
 	
