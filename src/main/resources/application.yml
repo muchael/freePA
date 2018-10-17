@@ -1,7 +1,8 @@
 #spring boot properties
 spring:
+  application.name: freePA
   datasource:
-    url: jdbc:postgresql://localhost/freepa-test
+    url: jdbc:postgresql://localhost/freepa
     username: freepa
     password: freepa
     hikari.maximum-pool-size: 3
@@ -9,5 +10,5 @@ spring:
   #JPA
   jpa:
     hibernate.ddl-auto: update
-    properties.hibernate.temp.use_jdbc_metadata_defaults: false
+    properties.hibernate.jdbc.lob.non_contextual_creation: true
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
