@@ -1,6 +1,7 @@
 package com.muchael.freePA.domain.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,5 +52,9 @@ public class FunctionService {
 	 */
 	List<Function> listFunctionsByDocument( Long documentId ) {
 		return null;
+	}
+
+	public Optional<Function> findFunctionById(long id) {
+		return this.functionRepository.findById( id );
 	}
 }

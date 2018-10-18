@@ -1,6 +1,7 @@
 package com.muchael.freePA.domain.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
@@ -26,7 +27,7 @@ public class DataType extends AbstractEntity {
 	 * Function that the data belongs
 	 */
 	@NotNull
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Function function;
 			
 	/*-------------------------------------------------------------------

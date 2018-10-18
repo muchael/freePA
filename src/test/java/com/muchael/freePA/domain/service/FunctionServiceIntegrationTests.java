@@ -26,8 +26,7 @@ public class FunctionServiceIntegrationTests extends FreePaApplicationTests {
 	 */
 	@Test
 	@Sql({"/dataset/project.sql",
-		"/dataset/document.sql",
-		"/dataset/function.sql"})
+		"/dataset/document.sql"})
 	public void insertFunctionMustPassWithTrTdNumber() {
 		Function function = new Function();
 
@@ -51,8 +50,7 @@ public class FunctionServiceIntegrationTests extends FreePaApplicationTests {
 	
 	@Test
 	@Sql({"/dataset/project.sql",
-		"/dataset/document.sql",
-		"/dataset/function.sql"})
+		"/dataset/document.sql"})
 	public void insertFunctionMustPassWithDataTypes() {
 		Function function = new Function();
 
@@ -76,12 +74,32 @@ public class FunctionServiceIntegrationTests extends FreePaApplicationTests {
 	
 	@Test(expected=ConstraintViolationException.class)
 	@Sql({"/dataset/project.sql",
-		"/dataset/document.sql",
-		"/dataset/function.sql"})
+		"/dataset/document.sql"})
 	public void insertFunctionMustFailWithoutMandatoryFields() {
 		Function function = new Function();
 
 		function.setName("Test");
+
+		this.functionService.insertFunction(function);
+	}
+	
+	@Test
+	@Sql({	"/dataset/project.sql",
+			"/dataset/document.sql",
+			"/dataset/function.sql",
+			"/dataset/data_type.sql"})
+	public void findFunctionByIdMustPass() {
+		Function function = this.functionService.findFunctionById( 1000L ).get();
+
+		assertNotNull(function);
+		assertNotNull(function.getId());
+		assertNotNull(function.getName());
+		assertNotNull(function.getTdQuantity());
+		assertNotNull(function.getTrQuantity());
+		assertNotNull(function.getFunctionType());
+		assertNotNull(function.getFunctionCategoryType());
+		assertNotNull(function.getDocument().getId());
+		assertFalse( function.getDataTypes().isEmpty() );
 
 		this.functionService.insertFunction(function);
 	}

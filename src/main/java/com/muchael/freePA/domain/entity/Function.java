@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
@@ -58,7 +59,7 @@ public class Function extends AbstractEntity {
 	/**
 	 * Data types
 	 */
-	@OneToMany(mappedBy = "function", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "function", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<DataType> dataTypes = new ArrayList<>();
 
 	/**
@@ -88,11 +89,11 @@ public class Function extends AbstractEntity {
 	/*-------------------------------------------------------------------
 	 *				 		     SETTERS E GETTERS
 	 *-------------------------------------------------------------------*/
-	public Integer getTdQuantity() {
-		return this.getDataTypes().size() > 0 ? this.getDataTypes().size() : this.tdQuantity;
-	}
-
-	public Integer getTrQuantity() {
-		return this.getReferencedTables().size() > 0 ? this.getReferencedTables().size() : this.trQuantity;
-	}
+//	public Integer getTdQuantity() {
+//		return this.getDataTypes().size() > 0 ? this.getDataTypes().size() : this.tdQuantity;
+//	}
+//
+//	public Integer getTrQuantity() {
+//		return this.getReferencedTables().size() > 0 ? this.getReferencedTables().size() : this.trQuantity;
+//	}
 }
