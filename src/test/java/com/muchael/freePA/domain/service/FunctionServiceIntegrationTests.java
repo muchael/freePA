@@ -26,7 +26,8 @@ public class FunctionServiceIntegrationTests extends FreePaApplicationTests {
 	 */
 	@Test
 	@Sql({"/dataset/project.sql",
-		"/dataset/document.sql"})
+		"/dataset/document.sql",
+		"/dataset/function.sql"})
 	public void insertFunctionMustPassWithTrTdNumber() {
 		Function function = new Function();
 
@@ -36,6 +37,7 @@ public class FunctionServiceIntegrationTests extends FreePaApplicationTests {
 		function.setFunctionType(FunctionType.INSERT);
 		function.setFunctionCategoryType(FunctionCategoryType.EE);
 		function.setDocument(new Document(1000L));
+		function.getReferencedTables().add( new Function(1000L) );
 
 		Function functionSaved = this.functionService.insertFunction(function);
 		assertNotNull(functionSaved);
@@ -46,6 +48,7 @@ public class FunctionServiceIntegrationTests extends FreePaApplicationTests {
 		assertEquals(FunctionType.INSERT, functionSaved.getFunctionType());
 		assertEquals(FunctionCategoryType.EE, functionSaved.getFunctionCategoryType());
 		assertEquals(1000L, functionSaved.getDocument().getId().longValue());
+		assertFalse(functionSaved.getReferencedTables().isEmpty());
 	}
 	
 	@Test
@@ -87,9 +90,10 @@ public class FunctionServiceIntegrationTests extends FreePaApplicationTests {
 	@Sql({	"/dataset/project.sql",
 			"/dataset/document.sql",
 			"/dataset/function.sql",
-			"/dataset/data_type.sql"})
+			"/dataset/data_type.sql",
+			"/dataset/function_referenced_tables.sql",})
 	public void findFunctionByIdMustPass() {
-		Function function = this.functionService.findFunctionById( 1000L ).get();
+		Function function = this.functionService.findFunctionById( 1001L );
 
 		assertNotNull(function);
 		assertNotNull(function.getId());
@@ -100,8 +104,7 @@ public class FunctionServiceIntegrationTests extends FreePaApplicationTests {
 		assertNotNull(function.getFunctionCategoryType());
 		assertNotNull(function.getDocument().getId());
 		assertFalse( function.getDataTypes().isEmpty() );
-
-		this.functionService.insertFunction(function);
+		assertFalse( function.getReferencedTables().isEmpty() );
 	}
 
 }

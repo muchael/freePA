@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.muchael.freePA.domain.entity.Function;
+import com.muchael.freePA.domain.repository.IDataTypeRepository;
 import com.muchael.freePA.domain.repository.IFunctionRepository;
 
 @Service
@@ -14,6 +15,9 @@ public class FunctionService {
 
 	@Autowired
 	private IFunctionRepository functionRepository;
+	
+	@Autowired
+	private IDataTypeRepository dataTypeRepository;
 
 	/**
 	 * Inserts a function
@@ -54,7 +58,11 @@ public class FunctionService {
 		return null;
 	}
 
-	public Optional<Function> findFunctionById(long id) {
-		return this.functionRepository.findById( id );
+	public Function findFunctionById(long id) {
+		Function function = this.functionRepository.findById( id ).orElseThrow( () -> new IllegalArgumentException("Function not found"));
+		
+		function.setDataTypes(this.dataTypeRepository.findByFunction_id(function.getId()));
+		
+		return function;
 	}
 }

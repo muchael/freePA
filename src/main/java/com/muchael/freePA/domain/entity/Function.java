@@ -59,13 +59,13 @@ public class Function extends AbstractEntity {
 	/**
 	 * Data types
 	 */
-	@OneToMany(mappedBy = "function", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "function", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<DataType> dataTypes = new ArrayList<>();
 
 	/**
 	 * Referenced tables
 	 */
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	private List<Function> referencedTables = new ArrayList<>();
 
 	/*-------------------------------------------------------------------
