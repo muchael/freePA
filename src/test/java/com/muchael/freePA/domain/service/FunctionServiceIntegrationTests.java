@@ -6,6 +6,7 @@ import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.jdbc.Sql;
 
 import com.muchael.freePA.FreePaApplicationTests;
@@ -105,6 +106,49 @@ public class FunctionServiceIntegrationTests extends FreePaApplicationTests {
 		assertNotNull(function.getDocument().getId());
 		assertFalse( function.getDataTypes().isEmpty() );
 		assertFalse( function.getReferencedTables().isEmpty() );
+	}
+	
+	@Test
+	@Sql({	"/dataset/project.sql",
+			"/dataset/document.sql",
+			"/dataset/function.sql",
+			"/dataset/data_type.sql",
+			"/dataset/function_referenced_tables.sql",})
+	public void updateFunctionMustPass() {
+		Function function = this.functionService.findFunctionById( 1001L );
+
+		function.setName("Test");
+		function.setTdQuantity(5);
+		function.setTrQuantity(1);
+		function.setFunctionType(FunctionType.INSERT);
+		function.setFunctionCategoryType(FunctionCategoryType.EE);
+		function.setDocument(new Document(1000L));
+		function.getReferencedTables().clear();
+		function.getDataTypes().clear();
+
+		Function functionSaved = this.functionService.updateFunction(function);
+		assertNotNull(functionSaved);
+		assertNotNull(functionSaved.getId());
+		assertEquals("Test", functionSaved.getName());
+		assertEquals(5, functionSaved.getTdQuantity().intValue());
+		assertEquals(1, functionSaved.getTrQuantity().intValue());
+		assertEquals(FunctionType.INSERT, functionSaved.getFunctionType());
+		assertEquals(FunctionCategoryType.EE, functionSaved.getFunctionCategoryType());
+		assertEquals(1000L, functionSaved.getDocument().getId().longValue());
+		assertTrue(functionSaved.getReferencedTables().isEmpty());
+		assertTrue(functionSaved.getDataTypes().isEmpty());
+	}
+	
+	@Test
+	@Sql({	"/dataset/project.sql",
+			"/dataset/document.sql",
+			"/dataset/function.sql",
+			"/dataset/data_type.sql",
+			"/dataset/function_referenced_tables.sql",})
+	public void listFunctionMustPass() {
+		Page<Function> functions = this.functionService.listFunctionByDocumentId( 1000L, null );
+		
+		assertFalse( functions.getContent().isEmpty() );
 	}
 
 }

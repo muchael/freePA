@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.muchael.freePA.domain.entity.Function;
@@ -54,8 +56,8 @@ public class FunctionService {
 	 * @param documentId
 	 * @return
 	 */
-	List<Function> listFunctionsByDocument( Long documentId ) {
-		return null;
+	public Page<Function> listFunctionByDocumentId( long documentId, PageRequest pageRequest ) {
+		return this.functionRepository.findByDocument_id( documentId, pageRequest );
 	}
 
 	public Function findFunctionById(long id) {
