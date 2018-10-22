@@ -149,6 +149,21 @@ public class FunctionServiceIntegrationTests extends FreePaApplicationTests {
 		Page<Function> functions = this.functionService.listFunctionByDocumentId( 1000L, null );
 		
 		assertFalse( functions.getContent().isEmpty() );
+		assertTrue( functions.getContent().stream().allMatch( function -> function.getName() != null ));
+		assertTrue( functions.getContent().stream().allMatch( function -> function.getFunctionType() != null ));
+		assertTrue( functions.getContent().stream().allMatch( function -> function.getFunctionCategoryType() != null ));
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	@Sql({	"/dataset/project.sql",
+			"/dataset/document.sql",
+			"/dataset/function.sql",
+			"/dataset/data_type.sql",
+			"/dataset/function_referenced_tables.sql",})
+	public void deleteFunctionMustPass() {
+		this.functionService.deleteFunction( 1001L );
+		
+		this.functionService.findFunctionById( 1001L );
 	}
 
 }
