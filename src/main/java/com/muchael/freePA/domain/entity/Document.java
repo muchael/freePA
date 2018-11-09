@@ -1,7 +1,11 @@
 package com.muchael.freePA.domain.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
@@ -35,6 +39,9 @@ public class Document extends AbstractEntity {
 	@NotNull
 	@ManyToOne
 	private Project project;
+	
+	@OneToMany(mappedBy = "document")
+	private List<Function> functions = new ArrayList<>();
 
 	/*-------------------------------------------------------------------
 	 * 		 					CONSTRUCTORS

@@ -89,11 +89,5 @@ public class Function extends AbstractEntity {
 	/*-------------------------------------------------------------------
 	 *				 		     SETTERS E GETTERS
 	 *-------------------------------------------------------------------*/
-//	public Integer getTdQuantity() {
-//		return this.getDataTypes().size() > 0 ? this.getDataTypes().size() : this.tdQuantity;
-//	}
-//
-//	public Integer getTrQuantity() {
-//		return this.getReferencedTables().size() > 0 ? this.getReferencedTables().size() : this.trQuantity;
-//	}
+
 }
