@@ -12,8 +12,10 @@ import com.muchael.freePA.domain.entity.Project;
 
 public interface IProjectRepository extends CrudRepository<Project, Long>{
 
-	@Query("FROM Project project WHERE (project.name LIKE '%:name%' OR :name is NULL)"
-			+ "AND ( ( project.startDate >= :initialDate OR :initialDate IS NULL ) AND project.startDate <= :finalDate OR :finalDate IS NULL )")
+	@Query("FROM Project project WHERE (project.name LIKE '%'||:name||'%' OR cast(:name as text) is NULL)"
+			+ "AND ( ( project.startDate BETWEEN cast(:initialDate as date) AND cast(:finalDate as date)) )")
 	Page<Project> listByFilters(@Param("name") String name, @Param("initialDate") LocalDate initialDate, @Param("finalDate") LocalDate finalDate, Pageable pageable);
 
+	
+//	OR cast(:initialDate as date) IS NULL ---  OR cast(:finalDate as date) IS NULL
 }

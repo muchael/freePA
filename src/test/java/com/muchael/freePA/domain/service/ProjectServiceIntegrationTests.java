@@ -2,7 +2,11 @@ package com.muchael.freePA.domain.service;
 
 import static org.junit.Assert.*;
 
+import java.time.DayOfWeek;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 
 import javax.validation.ConstraintViolationException;
 
@@ -86,6 +90,26 @@ public class ProjectServiceIntegrationTests extends FreePaApplicationTests {
 			"/dataset/document.sql"})
 	public void listProjectMustPass() {
 		Page<Project> projects = this.projectService.listProjectByFilters( null, null, null, null );
+		
+		assertFalse( projects.getContent().isEmpty() );
+		assertTrue( projects.getContent().stream().allMatch( function -> function.getName() != null ));
+	}
+	
+	@Test
+	@Sql({	"/dataset/project.sql",
+			"/dataset/document.sql"})
+	public void listProjectMustPassWithName() {
+		Page<Project> projects = this.projectService.listProjectByFilters( "test", null, null, null );
+		
+		assertFalse( projects.getContent().isEmpty() );
+		assertTrue( projects.getContent().stream().allMatch( function -> function.getName() != null ));
+	}
+	
+	@Test
+	@Sql({	"/dataset/project.sql",
+			"/dataset/document.sql"})
+	public void listProjectMustPassWithDate() {
+		Page<Project> projects = this.projectService.listProjectByFilters( null, LocalDate.now().minus(1, ChronoUnit.DAYS), LocalDate.now().plus(1, ChronoUnit.DAYS), null );
 		
 		assertFalse( projects.getContent().isEmpty() );
 		assertTrue( projects.getContent().stream().allMatch( function -> function.getName() != null ));
